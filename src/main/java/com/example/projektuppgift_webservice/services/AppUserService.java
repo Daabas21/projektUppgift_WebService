@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AppUserService {
@@ -34,5 +33,25 @@ public class AppUserService {
         AppUser appUser = appUserRepository.findById(id).orElseThrow();
 
         return new DtoResponse(appUser.getId(), appUser.getUsername());
+    }
+
+    public void deleteById(int id) {
+        appUserRepository.deleteById(id);
+    }
+
+    public DtoResponse updateUserById(int id, DtoRequest dtoRequest) {
+
+        AppUser existingAppUser = appUserRepository.findById(id).orElseThrow();
+
+        if (dtoRequest.username() != null){
+            existingAppUser.setUsername(dtoRequest.username());
+        }
+        if (dtoRequest.password() != null){
+            existingAppUser.setPassword(dtoRequest.password());
+        }
+
+        appUserRepository.save(existingAppUser);
+
+        return new DtoResponse(existingAppUser.getId(), existingAppUser.getUsername());
     }
 }
