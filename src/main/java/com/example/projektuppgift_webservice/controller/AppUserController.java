@@ -46,8 +46,8 @@ public class AppUserController {
     }
 
     @GetMapping("/{id}/posts")
-    public List<Post> findByUserId(@PathVariable int id){
-        return postService.findByUserId(id);
+    public List<Post> findPostByUserId(@PathVariable int id){
+        return postService.findPostByUserId(id);
     }
 
 }

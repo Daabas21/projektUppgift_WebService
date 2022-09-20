@@ -31,7 +31,7 @@ public class PostService {
                 .block();
     }
 
-    public List<Post> findByUserId(int id) {
+    public List<Post> findPostByUserId(int id) {
         return webClient
                 .get()
                 .uri("posts?userId="+id)
