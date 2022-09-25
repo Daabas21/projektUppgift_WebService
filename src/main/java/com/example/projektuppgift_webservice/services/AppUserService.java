@@ -17,7 +17,7 @@ public class AppUserService {
 
     public DtoResponse insertUser(DtoRequest userDtoRequest) {
         
-         AppUser existingAppuser  = appUserRepository.save(new AppUser(userDtoRequest.username(), userDtoRequest.password()));
+         AppUser existingAppuser  = appUserRepository.save(new AppUser(userDtoRequest.username(), userDtoRequest.password(),null));
          
          return new DtoResponse(existingAppuser.getId(), existingAppuser.getUsername());
     }

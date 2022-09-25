@@ -1,12 +1,15 @@
 package com.example.projektuppgift_webservice;
 
 import com.example.projektuppgift_webservice.entities.AppUser;
+import com.example.projektuppgift_webservice.entities.Role;
 import com.example.projektuppgift_webservice.repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 
 @SpringBootApplication
 public class ProjektUppgiftWebServiceApplication implements CommandLineRunner {
@@ -23,7 +26,7 @@ public class ProjektUppgiftWebServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        appUserRepository.save(new AppUser("hassan",passwordEncoder.encode("pass!")));
-        appUserRepository.save(new AppUser("ali", passwordEncoder.encode("password?")));
+        appUserRepository.save(new AppUser("hassan",passwordEncoder.encode("pass!"), List.of(Role.ADMIN)));
+        appUserRepository.save(new AppUser("ali", passwordEncoder.encode("pass!"),List.of(Role.USER)));
     }
 }

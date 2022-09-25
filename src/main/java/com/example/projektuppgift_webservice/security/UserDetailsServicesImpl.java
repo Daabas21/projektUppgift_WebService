@@ -21,14 +21,9 @@ public class UserDetailsServicesImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        AppUser appUser = appUserRepository
+        return appUserRepository
                 .findAppUsersByUsername(username)
                 .orElseThrow();
 
-        return User.builder()
-                .username(appUser.getUsername())
-                .password(appUser.getPassword())
-                .authorities(new SimpleGrantedAuthority("ROLE_ADMIN"))
-                .build();
     }
 }
