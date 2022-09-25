@@ -2,6 +2,7 @@ package com.example.projektuppgift_webservice.services;
 
 import com.example.projektuppgift_webservice.dto.Post;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -31,11 +32,13 @@ public class PostService {
                 .block();
     }
 
-    public List<Post> findPostByUserId(int id) {
-        return webClient
+    public ResponseEntity<List<Post>> findPostByUserId(int id) {
+         List<Post> posts  =  webClient
                 .get()
                 .uri("posts?userId="+id)
                 .exchangeToFlux(clientResponse -> clientResponse.bodyToFlux(Post.class))
                 .buffer().blockLast();
+
+         return ResponseEntity.ok(posts);
     }
 }

@@ -8,6 +8,7 @@ import com.example.projektuppgift_webservice.repositories.AppUserRepository;
 import com.example.projektuppgift_webservice.services.AppUserService;
 import com.example.projektuppgift_webservice.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -52,7 +53,7 @@ public class AppUserController {
     }
 
     @GetMapping("/{id}/posts")
-    public List<Post> findPostByUserId(@PathVariable int id, Principal principal) {
+    public ResponseEntity<List<Post>> findPostByUserId(@PathVariable int id, Principal principal) {
 
         AppUser appUser = appUserRepository.findAppUsersByUsername(principal.getName()).orElseThrow();
 
@@ -62,7 +63,7 @@ public class AppUserController {
             return postService.findPostByUserId(id);
         }
         else
-            return postService.findPostByUserId(userId);
+            return ResponseEntity.status(403).build();
     }
 
 }
